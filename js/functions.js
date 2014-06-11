@@ -503,14 +503,15 @@ $( document ).ready(function() {
             //alert(cat)
             $.ajax({
                 url:'/index.php/articulos/getmenus',
-                dataType: "json",
+                //dataType: "json",
                 data:{
                     categoria:cat
                 },
                 type: 'post',
                 success:function(data){
                     //alert(data.options)
-                    $('#menus-id').html(data.options);
+                    //$('#menus-id').html(data.options);
+                    $('#menus-id').html(data);
                     $('#selec-menu2').show();
                     
                 }

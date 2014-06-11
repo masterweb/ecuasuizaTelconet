@@ -70,6 +70,8 @@ class SliderController extends Controller {
             $model->fecha = date("Y-m-d");
             $archivoImg = CUploadedFile::getInstance($model, 'link');
             $fileName = "{$archivoImg}";  // file name
+            $ordenSlide = $this->getOrden();
+            $model->orden = $ordenSlide;
             //die('filename:  '.$fileName);
             if (!$archivoImg->getHasError() && $archivoImg != '') {
                 $model->link = $fileName;
@@ -77,7 +79,6 @@ class SliderController extends Controller {
                 if ($model->save())
                     $this->redirect(array('view', 'id' => $model->id));
             }else {
-
                 $this->render('create', array(
                     'model' => $model,
                 ));
@@ -181,15 +182,25 @@ class SliderController extends Controller {
         $this->editarOrden($idAct, $posAnt);
         $this->editarOrden($idSig, $posAct);
         $valid["exito"] = true;
-        echo json_encode($valid);
+        //echo json_encode($valid);
+        echo $valid["exito"];
     }
-    
+
     public function editarOrden($id, $posicion) {
         $sql = "UPDATE tbl_slider
 		SET orden = $posicion
 		WHERE id = $id";
         $res = Yii::app()->db->createCommand($sql)->execute();
         return $res;
+    }
+
+    private function getOrden() {
+        $sql = "SELECT MAX( orden ) as maxorden FROM tbl_slider";
+        $res = Yii::app()->db->createCommand($sql);
+        $rows = $res->queryAll();
+        foreach ($rows as $currentRow) {
+            return $currentRow['maxorden'];
+        }
     }
 
 }
