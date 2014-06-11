@@ -71,16 +71,26 @@ class PdfController extends Controller {
             $model->attributes = $_POST['Pdf'];
             if ($model->validate()) {
                 //$fpdf = CUploadedFile::getInstance($model, 'pdf');
+//                echo '<pre>';
+//                print_r($_FILES);
+//                echo '<pre>';
+//                die();
                 $fpdf = CUploadedFile::getInstanceByName('Pdf[pdf]');
+                //die('pdf: '.$fpdf);
                 if ($fpdf == "" || $fpdf->getHasError()) {
                     $model->addError('pdf', 'Error en archivo pdf');
                 } else {
                     //die('titulo: '.$_POST['Pdf']['titulo_cat']);
                     //die('subcategoria: '.$_POST['Pdf']['subcategoria']);
-                    $model->titulo_cat = $_POST['titulo-desplegable'];
+                    if($_POST['titulo-desplegable'] != 'ninguno' ){
+                        $model->titulo_cat = $_POST['titulo-desplegable'];
+                    }
+                    
+                    if($_POST['titulo-desplegable'] == 'nuevo'){
+                        $model->titulo_cat = $_POST['Pdf']['titulo_cat'];
+                    }
                     //die('titulo del pdf: '.$_POST['titulo-desplegable']);
                     $model->id_articulo = $_POST['Pdf']['subcategoria'];
-                    
                     $name_real = $fpdf->getName();
                     $actual = $this->getNumActual(4);
                     $folder = "pdf{$actual}";
