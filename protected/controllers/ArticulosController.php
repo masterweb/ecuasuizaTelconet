@@ -268,9 +268,10 @@ class ArticulosController extends Controller {
      */
     public function actionDelete($id) {
         $sub = $this->getMenuTipo($id);
-        if ($sub == 1) {
-            $this->setMenuNormal($id);
+        if ($sub != '') {
+            $this->setMenuNormal($sub);
         }
+        
         $this->loadModel($id)->delete();
 
 
@@ -392,14 +393,12 @@ class ArticulosController extends Controller {
     private function setMenuPrincipal($id) {
         $con = Yii::app()->db;
         $sql = "UPDATE tbl_articulos SET submenu = 1 WHERE id_articulos = {$id}";
-        //die('sql: '.$sql);
         $request = $con->createCommand($sql)->query();
     }
 
     private function setMenuNormal($id) {
         $con = Yii::app()->db;
         $sql = "UPDATE tbl_articulos SET submenu = 0 WHERE id_articulos = {$id}";
-        //die('sql: '.$sql);
         $request = $con->createCommand($sql)->query();
     }
 
@@ -407,11 +406,11 @@ class ArticulosController extends Controller {
         $con = Yii::app()->db;
         //die('sql: '.$sql);
         $user = Yii::app()->db->createCommand()
-                ->select('submenu')
+                ->select('id_menu_principal')
                 ->from('tbl_articulos')
                 ->where('id_articulos=:id', array(':id' => $id))
                 ->queryRow();
-        return $user['submenu'];
+        return $user['id_menu_principal'];
     }
 
 }
