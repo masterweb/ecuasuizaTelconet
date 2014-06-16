@@ -7,11 +7,10 @@ $IE9 = (ereg('MSIE 9', $_SERVER['HTTP_USER_AGENT'])) ? true : false;
 
 $navie = false;
 if (($IE8 == 1)) {
-   $navie = true;
-} 
+    $navie = true;
+}
 ?>
 <?php
-
 //$seguros = Seguros::model()->findAll(array('order' => 'pos'));
 $seguros = Seguros::model()->findAll(array('order' => 'categoria'));
 $servicios = Servicios::model()->findAll();
@@ -50,7 +49,7 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
         <script src="<?php echo Yii::app()->request->baseUrl; ?>/bootstrap/js/jquery.validationEngine.js" type="text/javascript" charset="utf-8"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/functions.js"></script>
         <?php if ($navie == false && !$mobile): ?>
-        <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/menudrop.js"></script>
+            <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/menudrop.js"></script>
         <?php endif; ?>
         <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>
         <!-- Add fancyBox -->
@@ -59,6 +58,16 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
         <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.5"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-51695943-1', 'ecuasuiza.ec');
+            ga('send', 'pageview');
+
+        </script>
         <script type="text/javascript">
             $(document).ready(function() {
                 //alert('ready');
@@ -67,22 +76,23 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
                 /*$('.menudrop a').on('click', function(){
                     $('.submenuec').hide();
                 });*/
-                <?php if($mobile): ?> 
-                $('.has-sub').click(function(){
-                    //alert('altura del elemento: '+h)
-                    $(".submenuec").css('opacity','1');
-                    $(this).next(".submenuec" ).slideToggle(500);
-                    return false;
-                });
-                // submenu ley de transparencia
-                $('.has-level').click(function(){
-                    //alert('altura del elemento: '+h)
-                    $(".sub-level").css('opacity','1');
-                    $(this).next(".sub-level" ).slideToggle(500);
-                    return false;
-                });
-                <?php endif; ?>
+                        
+<?php if ($mobile): ?> 
+            $('.has-sub').click(function(){
+                //alert('altura del elemento: '+h)
+                $(".submenuec").css('opacity','1');
+                $(this).next(".submenuec" ).slideToggle(500);
+                return false;
             });
+            // submenu ley de transparencia
+            $('.has-level').click(function(){
+                //alert('altura del elemento: '+h)
+                $(".sub-level").css('opacity','1');
+                $(this).next(".sub-level" ).slideToggle(500);
+                return false;
+            });
+<?php endif; ?>
+    });
         </script>
         <title><?php echo CHtml::encode($this->pageTitle); ?></title>
         <?php if ($mobile == false): ?>
@@ -95,11 +105,11 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
                         type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
             </script>
             <!--End of Zopim Live Chat Script-->
-            
+
 
             <style>
                 .form-signin{
-                    width: 50%;
+                    /*                    width: 50%;*/
                     margin: 0 auto;
                 }
                 .data-register a{
@@ -309,8 +319,7 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
             </div><!-- footer -->
 
         </div><!-- page -->
-        <div id="inline1" style="display: none; width: 500px;">
-
+        <div id="inline1" style="display: none;">
             <div class="form">
                 <form class="form-signin" action="/index.php/admin/loginEditor" method="post" id="form-login">
                     <div id="error-login" style="color:#4b9e44"></div>
@@ -333,7 +342,7 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
                 </div>
             </div>
         </div>
-       
+
         <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-top: 10%;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -345,73 +354,73 @@ if (isset($_SERVER['HTTP_USER_AGENT'])) {
                 <div class="span4">
                     <div class="modal-body" style="float:left; position: relative;height: 120px;">
                         <h4 class="title-pop">Disfruta tu experiencia al máximo actualizando tu navegador<h4>
-                                
-                    </div>
-                </div>
-                <div class="row" class="popupie">
-                    <div class="uno"><a href="http://windows.microsoft.com/es-419/internet-explorer/ie-11-worldwide-languages" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_105.jpg" style="margin-left: 40px;"/><span class="popie">Internet Explorer 11</span></a></div>
-                    <div class="dos"><a href="http://www.google.com/intl/es-419/chrome/browser/beta.html" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_99.jpg" style="margin-left: 40px;"/><span class="popie">Chrome 35</span></a></div>
-                    <div class="tres"><a href="https://www.mozilla.org/es-ES/firefox/new/" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_107.jpg" style="margin-left: 40px;"/><span class="popie">Firefox 28</span></a></div>
-                    <div class="cuatro"><a href="http://www.opera.com/es-419/computer/windows" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_102.jpg" style="margin-left: 40px;"/><span class="popie">Opera 21</span></a></div>
-                </div>
-            </div>
-        <div id="myModal2" style="display: none;">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div
-            <div class="row">
-                <div class="span2" style="margin-left: 10px;">
-                    <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/ico_popup.png" style="float:left;"/>
-                </div>
-                <div class="span4">
-                    <div class="modal-body" style="float:left;" >
-                        <h4 style="color:#4C9E45; font-size: 28px;
-line-height: 29px;
-font-family: Arial;
-font-weight: bold;
-letter-spacing: -1px;">Disfruta tu experiencia al máximo actualizando tu navegador<h4>
+
+                                </div>
+                                </div>
                                 <div class="row" class="popupie">
-                                    <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_105.jpg" style="margin-left: 40px;"/>Internet Explorer 11
-                                    <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_99.jpg" style="margin-left: 40px;"/>Chrome 35
-                                    <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_107.jpg" style="margin-left: 40px;"/>Firefox 28
-                <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_102.jpg" style="margin-left: 40px;"/>Opera 21
-                
-                
-                
-            </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
-</html>
-<script>
-    var menudrop=new menudrop.dd("menudrop");
-    menudrop.init("menudrop","menuhover");
-    $('.icon_buscador').click(function()
-    {
-        sendSearch();
-    });
+                                    <div class="uno"><a href="http://windows.microsoft.com/es-419/internet-explorer/ie-11-worldwide-languages" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_105.jpg" style="margin-left: 40px;"/><span class="popie">Internet Explorer 11</span></a></div>
+                                    <div class="dos"><a href="http://www.google.com/intl/es-419/chrome/browser/beta.html" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_99.jpg" style="margin-left: 40px;"/><span class="popie">Chrome 35</span></a></div>
+                                    <div class="tres"><a href="https://www.mozilla.org/es-ES/firefox/new/" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_107.jpg" style="margin-left: 40px;"/><span class="popie">Firefox 28</span></a></div>
+                                    <div class="cuatro"><a href="http://www.opera.com/es-419/computer/windows" target="_blank"><img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_102.jpg" style="margin-left: 40px;"/><span class="popie">Opera 21</span></a></div>
+                                </div>
+                                </div>
+                                <div id="myModal2" style="display: none;">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    </div
+                                    <div class="row">
+                                        <div class="span2" style="margin-left: 10px;">
+                                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/ico_popup.png" style="float:left;"/>
+                                        </div>
+                                        <div class="span4">
+                                            <div class="modal-body" style="float:left;" >
+                                                <h4 style="color:#4C9E45; font-size: 28px;
+                                                    line-height: 29px;
+                                                    font-family: Arial;
+                                                    font-weight: bold;
+                                                    letter-spacing: -1px;">Disfruta tu experiencia al máximo actualizando tu navegador<h4>
+                                                        <div class="row" class="popupie">
+                                                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_105.jpg" style="margin-left: 40px;"/>Internet Explorer 11
+                                                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_99.jpg" style="margin-left: 40px;"/>Chrome 35
+                                                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_107.jpg" style="margin-left: 40px;"/>Firefox 28
+                                                            <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/img_102.jpg" style="margin-left: 40px;"/>Opera 21
+
+
+
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </div>
+                                                        </body>
+                                                        </html>
+                                                        <script>
+                                                            var menudrop=new menudrop.dd("menudrop");
+                                                            menudrop.init("menudrop","menuhover");
+                                                            $('.icon_buscador').click(function()
+                                                            {
+                                                                sendSearch();
+                                                            });
     
-    $("#txt_search").keypress(function(event) {
-        if(event.which == 13)
-            sendSearch(); 
-    });
-    //$( "#seccion7" ).mouseover(function() {
-    //    $( ".juiciocrudo" ).show();
-    //});
-    //$( "#seccion7" ).mouseout(function() {
-    //    $( ".juiciocrudo" ).hide();
-    //});
+                                                            $("#txt_search").keypress(function(event) {
+                                                                if(event.which == 13)
+                                                                    sendSearch(); 
+                                                            });
+                                                            //$( "#seccion7" ).mouseover(function() {
+                                                            //    $( ".juiciocrudo" ).show();
+                                                            //});
+                                                            //$( "#seccion7" ).mouseout(function() {
+                                                            //    $( ".juiciocrudo" ).hide();
+                                                            //});
     
-    function sendSearch()
-    {
-        var txt = $('#txt_search').val();
-        if(txt != "")
-        {
-            var url =  "<?php echo Yii::app()->createUrl('site/busqueda'); ?>";
-            url += "/" + txt;
-            document.location.href = url;
-        }
-    }
-</script>
+                                                            function sendSearch()
+                                                            {
+                                                                var txt = $('#txt_search').val();
+                                                                if(txt != "")
+                                                                {
+                                                                    var url =  "<?php echo Yii::app()->createUrl('site/busqueda'); ?>";
+                                                                    url += "/" + txt;
+                                                                    document.location.href = url;
+                                                                }
+                                                            }
+                                                        </script>

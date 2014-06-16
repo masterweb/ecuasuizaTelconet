@@ -93,6 +93,8 @@ $this->widget('zii.widgets.grid.CGridView', array(
 ?>
 <script type="text/javascript">
     $(document).ready(function(){
+        var url = "<?php echo Yii::app()->createUrl("slider/admin"); ?>";
+        
         $(".up").live("click", function(){
             var id = $(this).attr("href").split("#")[1].split("-")[0];
             var posAct = $(this).attr("href").split("#")[1].split("-")[1];
@@ -100,12 +102,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
             var idAnt = jQuery(this).closest('tr').prev().find('a.down').attr("href").split("#")[1].split("-")[0]
             var posAnt = jQuery(this).closest('tr').prev().find('a.down').attr("href").split("#")[1].split("-")[1];
 
-            $.post('<?php echo Yii::app()->createUrl("slider/setposition");?>', {"idAct": id, "posAct":posAct, "idSig":idAnt, "posAnt":posAnt },
+            /*$.post('<?php echo Yii::app()->createUrl("slider/setposition"); ?>', {"idAct": id, "posAct":posAct, "idSig":idAnt, "posAnt":posAnt },
             function(data){
                 if(data.exito){
-                    location.reload();
+                    $(location).attr('href', url);
                 }
-            }, "json");
+            });*/
+            
+            $.ajax({
+                'url':'<?php echo Yii::app()->createUrl("slider/setposition"); ?>',
+                data: {"idAct": id, "posAct":posAct, "idSig":idAnt, "posAnt":posAnt},
+                type: 'post',
+                success: function(data){
+                    if(data == true){
+                        $(location).attr('href', url);
+                    }
+                }
+            });
         });
 		
         $(".down").live("click", function(){
@@ -115,12 +128,23 @@ $this->widget('zii.widgets.grid.CGridView', array(
             var idSig = jQuery(this).closest('tr').next().find('a.up').attr("href").split("#")[1].split("-")[0]
             var posSig = jQuery(this).closest('tr').next().find('a.up').attr("href").split("#")[1].split("-")[1];
 
-            $.post('<?php echo Yii::app()->createUrl("slider/setposition");?>', {"idAct": id, "posAct":posAct, "idSig":idSig, "posAnt":posSig },
+            /*$.post('<?php echo Yii::app()->createUrl("slider/setposition"); ?>', {"idAct": id, "posAct":posAct, "idSig":idSig, "posAnt":posSig },
             function(data){
                 if(data.exito){
-                    location.reload();
+                    $(location).attr('href', url);
                 }
-            }, "json");
+            });*/
+            
+            $.ajax({
+                'url':'<?php echo Yii::app()->createUrl("slider/setposition"); ?>',
+                data: {"idAct": id, "posAct":posAct, "idSig":idSig, "posAnt":posSig},
+                type: 'post',
+                success: function(data){
+                    if(data == true){
+                        $(location).attr('href', url);
+                    }
+                }
+            });
 
         });
     });
