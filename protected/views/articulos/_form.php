@@ -162,7 +162,7 @@ if (!Yii::app()->user->isAdminUser()) {
 <?php $this->endWidget(); ?>
     <script type="text/javascript">
         //CKEDITOR.replace( 'editor1');
-    
+        // resolved link with pdfs
     </script>
 
 </div><!-- form -->
