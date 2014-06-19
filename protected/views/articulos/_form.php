@@ -133,12 +133,32 @@ if (!Yii::app()->user->isAdminUser()) {
     </div>
 
     <div class="row">
-<?php echo $form->labelEx($model, 'contenido'); ?>
+        <?php echo $form->labelEx($model, 'contenido'); ?>
         <?php //echo $form->textArea($model, 'contenido', array('rows' => 6, 'cols' => 50, 'class' => 'textarea2', 'style' => 'height:400px;'));    ?>
-
-
-<?php echo $form->textArea($model, 'contenido', array('id' => 'editor1', 'height' => '400px', 'width' => '100%')); ?>
-        <?php echo $form->error($model, 'contenido'); ?>
+            
+            
+        <?php //echo $form->textArea($model, 'contenido', array('id' => 'editor1', 'height' => '400px', 'width' => '100%')); ?>
+        <?php //echo $form->error($model, 'contenido'); ?>
+        <?php
+        $this->widget('application.extensions.TheCKEditor.theCKEditorWidget', array(
+            'model' => $model, # Data-Model (form model)
+            'attribute' => 'contenido', # Attribute in the Data-Model
+            'height' => '400px',
+            'width' => '100%',
+            'toolbarSet' => 'Full', # EXISTING(!) Toolbar (see: ckeditor.js)
+            'ckeditor' => Yii::app()->basePath . '/../ckeditor/ckeditor.php',
+            # Path to ckeditor.php
+            'ckBasePath' => Yii::app()->baseUrl . '/ckeditor/',
+            # Relative Path to the Editor (from Web-Root)
+            'css' => Yii::app()->baseUrl . '/css/index.css',
+            # Additional Parameters
+            'config' => array('toolbar' => "Full",
+                "filebrowserImageUploadUrl" => Yii::app()->baseUrl . '/kcfinder/upload.php?type=images',
+                "filebrowserBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=files',
+                "filebrowserImageBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=images',
+                "filebrowserFlashBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=flash',)
+        ));
+        ?>
     </div>
     <div class="row buttons">
     <?php echo CHtml::submitButton($model->isNewRecord ? 'Crear' : 'Guardar'); ?>
@@ -146,14 +166,7 @@ if (!Yii::app()->user->isAdminUser()) {
 
 <?php $this->endWidget(); ?>
     <script type="text/javascript">
-        CKEDITOR.replace( 'editor1', {
-         filebrowserBrowseUrl: '<?php echo Yii::app()->baseUrl; ?>/kcfinder/browse.php?type=files',
-         filebrowserImageBrowseUrl: '<?php echo Yii::app()->baseUrl; ?>/kcfinder/browse.php?type=images',
-         filebrowserFlashBrowseUrl: '<?php echo Yii::app()->baseUrl; ?>/kcfinder/browse.php?type=flash',
-         filebrowserUploadUrl: '<?php echo Yii::app()->baseUrl; ?>/kcfinder/upload.php?type=files',
-         filebrowserImageUploadUrl: '<?php echo Yii::app()->baseUrl; ?>/kcfinder/upload.php?type=images',
-         filebrowserFlashUploadUrl: '<?php echo Yii::app()->baseUrl; ?>/kcfinder/upload.php?type=flash'
-    });
+        //CKEDITOR.replace( 'editor1');
     
     </script>
 

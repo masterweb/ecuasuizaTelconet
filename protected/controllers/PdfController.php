@@ -85,7 +85,7 @@ class PdfController extends Controller {
                     if($_POST['titulo-desplegable'] != 'ninguno' ){
                         $model->titulo_cat = $_POST['titulo-desplegable'];
                     }
-                    
+
                     if($_POST['titulo-desplegable'] == 'nuevo'){
                         $model->titulo_cat = $_POST['Pdf']['titulo_cat'];
                     }
@@ -224,7 +224,7 @@ class PdfController extends Controller {
             Yii::app()->end();
         }
     }
-    
+
     private function sanear_string($string) {
         $string = (string) $string;
         $string = trim($string);
