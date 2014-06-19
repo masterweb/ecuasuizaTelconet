@@ -71,10 +71,6 @@ class PdfController extends Controller {
             $model->attributes = $_POST['Pdf'];
             if ($model->validate()) {
                 //$fpdf = CUploadedFile::getInstance($model, 'pdf');
-//                echo '<pre>';
-//                print_r($_FILES);
-//                echo '<pre>';
-//                die();
                 $fpdf = CUploadedFile::getInstanceByName('Pdf[pdf]');
                 //die('pdf: '.$fpdf);
                 if ($fpdf == "" || $fpdf->getHasError()) {

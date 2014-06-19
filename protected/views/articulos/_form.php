@@ -126,11 +126,6 @@ if (!Yii::app()->user->isAdminUser()) {
 <?php echo $form->textArea($model, 'desc_min', array('rows' => 3, 'cols' => 20)); ?>
         <?php echo $form->error($model, 'desc_min'); ?>
     </div>
-    <div class="row">
-        <?php //echo $form->labelEx($model, 'orden');   ?>
-<?php //echo $form->textField($model, 'orden', array('size' => 60, 'maxlength' => 150));     ?>
-<?php //echo $form->error($model, 'orden');    ?>
-    </div>
 
     <div class="row">
         <?php echo $form->labelEx($model, 'contenido'); ?>
