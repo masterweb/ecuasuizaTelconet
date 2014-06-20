@@ -130,12 +130,7 @@ if (!Yii::app()->user->isAdminUser()) {
     <div class="row">
         <?php echo $form->labelEx($model, 'contenido'); ?>
         <?php //echo $form->textArea($model, 'contenido', array('rows' => 6, 'cols' => 50, 'class' => 'textarea2', 'style' => 'height:400px;'));    ?>
-            
-            
-        <?php //echo $form->textArea($model, 'contenido', array('id' => 'editor1', 'height' => '400px', 'width' => '100%')); ?>
-        <?php //echo $form->error($model, 'contenido'); ?>
-        <?php
-        $this->widget('application.extensions.TheCKEditor.theCKEditorWidget', array(
+        <?php $this->widget('application.extensions.TheCKEditor.TheCKEditorWidget', array(
             'model' => $model, # Data-Model (form model)
             'attribute' => 'contenido', # Attribute in the Data-Model
             'height' => '400px',
