@@ -31,7 +31,7 @@ class Pdf extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('name, categoria, subcategoria, pdf', 'required'),
+            array('name, categoria, subcategoria', 'required'),
             array('pos', 'numerical', 'integerOnly' => true),
             array('name, name_real, pdf', 'length', 'max' => 255),
             array('categoria, keyword', 'length', 'max' => 150),
