@@ -68,48 +68,42 @@ class PdfController extends Controller {
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Pdf'])) {
+            require_once 'upload/upload.php';
             $model->attributes = $_POST['Pdf'];
-            if ($model->validate()) {
-                //$fpdf = CUploadedFile::getInstance($model, 'pdf');
-                $fpdf = CUploadedFile::getInstanceByName('Pdf[pdf]');
-                //die('pdf: '.$fpdf);
-                if ($fpdf == "" || $fpdf->getHasError()) {
-                    $model->addError('pdf', 'Error en archivo pdf');
-                } else {
-                    //die('titulo: '.$_POST['Pdf']['titulo_cat']);
-                    //die('subcategoria: '.$_POST['Pdf']['subcategoria']);
-                    if($_POST['titulo-desplegable'] != 'ninguno' ){
-                        $model->titulo_cat = $_POST['titulo-desplegable'];
-                    }
+            $upload = new Upload();
+            $targetDirectory = Yii::getPathOfAlias("webroot") . "/files/pdf/";
+            $nameFile = $this->sanear_string($_FILES['Pdf']['name']['pdf']);
+            $upload->SetFileName($nameFile);
+            $upload->SetTempName($_FILES['Pdf']['tmp_name']['pdf']);
+            $upload->SetUploadDirectory($targetDirectory);
+            $model->pdf = $upload->GetFileName();
+            //$fpdf = CUploadedFile::getInstance($model, 'pdf');
+            //die('titulo: '.$_POST['Pdf']['titulo_cat']);
+            //die('subcategoria: '.$_POST['Pdf']['subcategoria']);
+            if ($_POST['titulo-desplegable'] != 'ninguno') {
+                $model->titulo_cat = $_POST['titulo-desplegable'];
+            }
 
-                    if($_POST['titulo-desplegable'] == 'nuevo'){
-                        $model->titulo_cat = $_POST['Pdf']['titulo_cat'];
-                    }
-                    //die('titulo del pdf: '.$_POST['titulo-desplegable']);
-                    $model->id_articulo = $_POST['Pdf']['subcategoria'];
-                    $name_real = $fpdf->getName();
-                    $actual = $this->getNumActual(4);
-                    $folder = "pdf{$actual}";
-//                    $path = Yii::app()->params['folder'] . "/pdf/" . $folder;
-//                    $model->pdf = $path . "." . $fpdf->extensionName;
-//                    $fpdf->saveAs($model->pdf);
-                    $fileName = "{$fpdf}";  // file name
-                    $fileName = $this->sanear_string($fileName);
-                    $model->pdf = $fileName;
-                    $fpdf->saveAs(Yii::getPathOfAlias("webroot") . "/uploads/pdf/" . $fileName);
-                    $model->name_real = $folder;
-                    $res = new Resource;
-                    $res->type_resource = 4;
-                    $res->name_resource = $model->name;
-                    $res->folder_resource = $folder;
-                    $res->date_register = date("Y-m-d H:i:s");
-                    $res->account = 4;
-                    $res->name_real = $name_real;
-                    $res->save();
-                    if ($model->save()){
-                        $this->redirect(array('pdf/admin'));
-                    }
-                }
+            if ($_POST['titulo-desplegable'] == 'nuevo') {
+                $model->titulo_cat = $_POST['Pdf']['titulo_cat'];
+            }
+            //die('titulo del pdf: '.$_POST['titulo-desplegable']);
+            $model->id_articulo = $_POST['Pdf']['subcategoria'];
+            $actual = $this->getNumActual(4);
+            $folder = "pdf{$actual}";
+            $model->name_real = $folder;
+            $res = new Resource;
+            $res->type_resource = 4;
+            $res->name_resource = $model->name;
+            $res->folder_resource = $folder;
+            $res->date_register = date("Y-m-d H:i:s");
+            $res->account = 4;
+            $res->name_real = $name_real;
+            $res->save();
+
+            if ($model->save()) {
+                $upload->UploadFile();
+                $this->redirect(array('pdf/admin'));
             }
         }
 
@@ -251,14 +245,14 @@ class PdfController extends Controller {
         $string = str_replace("+", "", $string);
         //Esta parte se encarga de eliminar cualquier caracter extraño
         $string = str_replace(
-                array("\\", "¨", "º","~",
+                array("\\", "¨", "º", "~",
             "#", "@", "|", "!", "\"",
             "$", "%", "&", "/",
             "(", ")", "?", "'", "¡",
             "¿", "[", "^", "`", "]",
             "}", "{", "¨", "´",
             ">", "< ", ";", ",", ":",
-            "+"," "), '_', $string
+            "+", " "), '_', $string
         );
 
 

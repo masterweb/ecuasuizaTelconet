@@ -37,7 +37,7 @@ class Pdf extends CActiveRecord {
             array('categoria, keyword', 'length', 'max' => 150),
             array('subcategoria', 'length', 'max' => 100),
             array('activo', 'length', 'max' => 15),
-            //array('pdf','file', 'types'=>'pdf'),
+            array('pdf','file', 'types'=>'pdf'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, name, descripcion, name_real, categoria, subcategoria, titulo_cat, pdf, activo, pos,id_articulo', 'safe', 'on' => 'search'),
