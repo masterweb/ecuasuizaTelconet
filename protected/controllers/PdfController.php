@@ -70,48 +70,40 @@ class PdfController extends Controller {
         if (isset($_POST['Pdf'])) {
             require_once 'upload/upload.php';
             $model->attributes = $_POST['Pdf'];
-            if ($model->validate()) {
-                if (@!empty($_FILES['Pdf']['name']['pdf'])) {
-                    $upload = new Upload();
-                    $targetDirectory = Yii::getPathOfAlias("webroot") . "/files/pdf/";
-                    $nameFile = $this->sanear_string($_FILES['Pdf']['name']['pdf']);
-                    $upload->SetFileName($nameFile);
-                    $upload->SetTempName($_FILES['Pdf']['tmp_name']['pdf']);
-                    $upload->SetUploadDirectory($targetDirectory);
-                    //$upload->SetValidExtensions(array('gif', 'jpg', 'jpeg', 'png'));
-                    //$upload->SetMaximumFileSize(2097152); //2 MB de limite
-                    $upload->UploadFile();
-                    $model->pdf = $upload->GetFileName();
-                    //if ($model->validate()) {
-                        //$fpdf = CUploadedFile::getInstance($model, 'pdf');
-                        //die('titulo: '.$_POST['Pdf']['titulo_cat']);
-                        //die('subcategoria: '.$_POST['Pdf']['subcategoria']);
-                        if ($_POST['titulo-desplegable'] != 'ninguno') {
-                            $model->titulo_cat = $_POST['titulo-desplegable'];
-                        }
+            $upload = new Upload();
+            $targetDirectory = Yii::getPathOfAlias("webroot") . "/files/pdf/";
+            $nameFile = $this->sanear_string($_FILES['Pdf']['name']['pdf']);
+            $upload->SetFileName($nameFile);
+            $upload->SetTempName($_FILES['Pdf']['tmp_name']['pdf']);
+            $upload->SetUploadDirectory($targetDirectory);
+            $model->pdf = $upload->GetFileName();
+            //$fpdf = CUploadedFile::getInstance($model, 'pdf');
+            //die('titulo: '.$_POST['Pdf']['titulo_cat']);
+            //die('subcategoria: '.$_POST['Pdf']['subcategoria']);
+            if ($_POST['titulo-desplegable'] != 'ninguno') {
+                $model->titulo_cat = $_POST['titulo-desplegable'];
+            }
 
-                        if ($_POST['titulo-desplegable'] == 'nuevo') {
-                            $model->titulo_cat = $_POST['Pdf']['titulo_cat'];
-                        }
-                        //die('titulo del pdf: '.$_POST['titulo-desplegable']);
-                        $model->id_articulo = $_POST['Pdf']['subcategoria'];
-                        $actual = $this->getNumActual(4);
-                        $folder = "pdf{$actual}";
-                        $model->name_real = $folder;
-                        $res = new Resource;
-                        $res->type_resource = 4;
-                        $res->name_resource = $model->name;
-                        $res->folder_resource = $folder;
-                        $res->date_register = date("Y-m-d H:i:s");
-                        $res->account = 4;
-                        $res->name_real = $name_real;
-                        $res->save();
+            if ($_POST['titulo-desplegable'] == 'nuevo') {
+                $model->titulo_cat = $_POST['Pdf']['titulo_cat'];
+            }
+            //die('titulo del pdf: '.$_POST['titulo-desplegable']);
+            $model->id_articulo = $_POST['Pdf']['subcategoria'];
+            $actual = $this->getNumActual(4);
+            $folder = "pdf{$actual}";
+            $model->name_real = $folder;
+            $res = new Resource;
+            $res->type_resource = 4;
+            $res->name_resource = $model->name;
+            $res->folder_resource = $folder;
+            $res->date_register = date("Y-m-d H:i:s");
+            $res->account = 4;
+            $res->name_real = $name_real;
+            $res->save();
 
-                        if ($model->save()) {
-                            $this->redirect(array('pdf/admin'));
-                        }
-                    //}
-                }
+            if ($model->save()) {
+                $upload->UploadFile();
+                $this->redirect(array('pdf/admin'));
             }
         }
 
