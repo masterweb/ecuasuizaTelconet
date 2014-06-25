@@ -142,11 +142,11 @@ if (!Yii::app()->user->isAdminUser()) {
             # Relative Path to the Editor (from Web-Root)
             'css' => Yii::app()->baseUrl . '/css/index.css',
             # Additional Parameters
-            'config' => array('toolbar' => "Full",
-                "filebrowserImageUploadUrl" => Yii::app()->baseUrl . '/kcfinder/upload.php?type=images',
-                "filebrowserBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=files',
-                "filebrowserImageBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=images',
-                "filebrowserFlashBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=flash',)
+//            'config' => array('toolbar' => "Full",
+//                "filebrowserImageUploadUrl" => Yii::app()->baseUrl . '/kcfinder/upload.php?type=images',
+//                "filebrowserBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=files',
+//                "filebrowserImageBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=images',
+//                "filebrowserFlashBrowseUrl" => Yii::app()->baseUrl . '/kcfinder/browse.php?type=flash',)
         ));
         ?>
     </div>
