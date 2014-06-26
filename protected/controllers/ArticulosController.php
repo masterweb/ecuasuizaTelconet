@@ -59,9 +59,9 @@ class ArticulosController extends Controller {
      */
     public function actionCreate() {
         $model = new Articulos;
-        $_SESSION['KCFINDER']['disabled'] = false; // enables the file browser in the admin
-        $_SESSION['KCFINDER']['uploadURL'] = Yii::app()->baseUrl . "/uploads/"; // URL for the uploads folder
-        $_SESSION['KCFINDER']['uploadDir'] = Yii::app()->basePath . "/../uploads/"; // path to the uploads folder
+        //$_SESSION['KCFINDER']['disabled'] = false; // enables the file browser in the admin
+        //$_SESSION['KCFINDER']['uploadURL'] = Yii::app()->baseUrl . "/uploads/"; // URL for the uploads folder
+        //$_SESSION['KCFINDER']['uploadDir'] = Yii::app()->basePath . "/../uploads/"; // path to the uploads folder
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
@@ -101,17 +101,23 @@ class ArticulosController extends Controller {
                 $model->link_string = $spic; // save string of images for nivo slider
                 $model->galeria = 1; // save 1 if gallery exists
             }
+            //die('before save new:' . $model->link_string);
             if ($_POST['Articulos']['has_image'] == 'Si') {
                 // subir miniatura de la noticia al servidor
-                $archivoThumb = CUploadedFile::getInstance($model, 'thumb');
-                $fileName = "{$archivoThumb}";  // file name
-
-                if (!$archivoThumb->getHasError()) {
-                    $model->thumb = $fileName;
-                    if ($model->save()) {
-                        $archivoThumb->saveAs(Yii::getPathOfAlias("webroot") . "/img/noticias/thumbs/" . $fileName);
-                        $this->redirect(array('articulos/admin', 'categoria' => $categoria));
-                    }
+                require_once 'upload/upload.php';
+                $upload = new Upload();
+                $targetDirectory = Yii::getPathOfAlias("webroot") . "/img/noticias/thumbs/";
+                $upload->SetFileName($_FILES['Articulos']['name']['thumb']);
+                $upload->SetTempName($_FILES['Articulos']['tmp_name']['thumb']);
+                $upload->SetUploadDirectory($targetDirectory);
+                //$archivoThumb = CUploadedFile::getInstance($model, 'thumb');
+                //$fileName = "{$archivoThumb}";  // file name
+                $model->thumb = $upload->GetFileName();
+                
+                if ($model->save()) {
+                    //$archivoThumb->saveAs(Yii::getPathOfAlias("webroot") . "/img/noticias/thumbs/" . $fileName);
+                    $upload->UploadFile();
+                    $this->redirect(array('articulos/admin', 'categoria' => $categoria));
                 }
             } else {
                 if ($model->save())
@@ -271,7 +277,7 @@ class ArticulosController extends Controller {
         if ($sub != '') {
             $this->setMenuNormal($sub);
         }
-        
+
         $this->loadModel($id)->delete();
 
 

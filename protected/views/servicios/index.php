@@ -87,8 +87,8 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                                                 ?>
                                                 <?php foreach ($pdfAcc as $value) { ?>
                                                     <li>
-                                                        <!--<a href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/pdf/<?php echo $value['pdf'] ?>" target="_blank">-->
-                                                        <a href="http://166.78.229.104/ecuasuiza/uploads/pdf/<?php echo $value['pdf'] ?>" target="_blank">
+                                                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/files/pdf/<?php echo $value['pdf'] ?>" target="_blank">
+                                                        <!--<a href="http://166.78.229.104/ecuasuiza/uploads/pdf/<?php echo $value['pdf'] ?>" target="_blank">-->
                                                             <img src="<?php echo Yii::app()->request->baseUrl; ?>/img/hogar/icon_pdf.png"><?php echo $value['name'] ?></a>
                                                     </li>
                                                 <?php } ?>
@@ -109,7 +109,7 @@ $this->widget('zii.widgets.CBreadcrumbs', array(
                      <ul>';
                 foreach ($pdf as $value) {
                     $data .= '<li>
-                            <a href="http://166.78.229.104/ecuasuiza/uploads/pdf/' . $value['pdf'] . '" target="_blank">
+                            <a href="'.Yii::app()->request->baseUrl.'/files/pdf/' . $value['pdf'] . '" target="_blank">
                             <img src="' . Yii::app()->request->baseUrl . '/img/hogar/icon_pdf.png">' . $value['name'] . '</a>
                          </li>';
                 }
