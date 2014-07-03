@@ -113,8 +113,8 @@ class Util {
     }
     
     public static function getImageMultimediaLink($data) {
-        $html = '<img src="'. Yii::app()->request->baseUrl.'/uploads/images/'.$data->image.'" width="30%"/><br><br>'; 
-        $html .= '<p>http://preproduccion.ariadna.us/'. Yii::app()->request->baseUrl.'/uploads/images/'.$data->image.'</p>'; 
+        $html = '<img src="'. Yii::app()->request->baseUrl.'/files/images/'.$data->image.'" width="30%"/><br><br>'; 
+        $html .= '<p>'. Yii::app()->request->baseUrl.'/files/images/'.$data->image.'</p>'; 
         return $html;
     }
     
